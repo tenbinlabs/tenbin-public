@@ -1,0 +1,32 @@
+[package]
+name = "tenbin-public"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+description = "Minimal public-surface crate consumed by Tenbin's public-facing services (e.g. the verification service)."
+repository = "https://github.com/tenbinlabs/tenbin-public"
+readme = "README.md"
+
+# Deliberately small: this crate exists to be a shared dep between Tenbin's
+# internal monorepo and its public-facing services. Anything that doesn't need
+# to cross that boundary stays internal.
+#
+# Versions track the internal monorepo at the time of extraction. Keep aligned.
+[dependencies]
+chrono = { version = "0.4", features = ["serde"] }
+opentelemetry = "=0.30.0"
+opentelemetry-otlp = { version = "0.30.0", features = ["trace", "grpc-tonic"] }
+opentelemetry_sdk = "0.30.0"
+reqwest = { version = "0.13", features = ["json", "query"] }
+rust_decimal = { version = "1.40", features = ["serde-str", "macros", "serde-with-float", "maths"] }
+sentry = { version = "0.38", default-features = false, features = ["backtrace", "contexts", "panic", "tracing", "reqwest", "rustls"], optional = true }
+sentry-tracing = { version = "0.38", optional = true }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_with = { version = "3.17.0", features = ["chrono_0_4"] }
+tracing = "0.1"
+tracing-opentelemetry = "0.31"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[features]
+sentry = ["dep:sentry", "dep:sentry-tracing"]

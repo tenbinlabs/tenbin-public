@@ -1,0 +1,16 @@
+# Rust build artifacts
+target/
+
+# Cargo lockfile is intentionally not committed: library convention.
+# Downstream consumers resolve against their own workspace lockfile.
+Cargo.lock
+
+# Editor / OS
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Local env
+.env
+.env.local
